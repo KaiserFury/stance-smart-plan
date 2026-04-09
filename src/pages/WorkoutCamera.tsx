@@ -130,7 +130,6 @@ const WorkoutCamera = ({ plan }: Props) => {
     let cancelled = false;
 
     const init = async () => {
-      // Dynamically load MediaPipe
       const loadScript = (src: string) =>
         new Promise<void>((resolve, reject) => {
           if (document.querySelector(`script[src="${src}"]`)) {
@@ -172,8 +171,14 @@ const WorkoutCamera = ({ plan }: Props) => {
 
       if (!videoRef.current) return;
 
+      // Stop any existing stream
+      if (videoRef.current.srcObject) {
+        (videoRef.current.srcObject as MediaStream).getTracks().forEach((t) => t.stop());
+      }
+      cameraRef.current?.stop();
+
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user", width: 640, height: 480 },
+        video: { facingMode, width: 640, height: 480 },
       });
       if (cancelled) return;
       videoRef.current.srcObject = stream;
@@ -203,7 +208,7 @@ const WorkoutCamera = ({ plan }: Props) => {
           .forEach((t) => t.stop());
       }
     };
-  }, [plan, onResults]);
+  }, [plan, onResults, facingMode]);
 
   // Reset reps when switching exercise
   useEffect(() => {
