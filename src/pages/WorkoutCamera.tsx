@@ -25,6 +25,7 @@ const WorkoutCamera = ({ plan }: Props) => {
   const [phase, setPhase] = useState<"up" | "down">("up");
   const [isLoading, setIsLoading] = useState(true);
   const [currentExIndex, setCurrentExIndex] = useState(0);
+  const [facingMode, setFacingMode] = useState<"user" | "environment">("user");
 
   const currentExercise: Exercise | undefined = plan?.exercises[currentExIndex];
   const exerciseType = currentExercise?.name.toLowerCase().includes("pushup")
@@ -129,7 +130,6 @@ const WorkoutCamera = ({ plan }: Props) => {
     let cancelled = false;
 
     const init = async () => {
-      // Dynamically load MediaPipe
       const loadScript = (src: string) =>
         new Promise<void>((resolve, reject) => {
           if (document.querySelector(`script[src="${src}"]`)) {
@@ -171,8 +171,14 @@ const WorkoutCamera = ({ plan }: Props) => {
 
       if (!videoRef.current) return;
 
+      // Stop any existing stream
+      if (videoRef.current.srcObject) {
+        (videoRef.current.srcObject as MediaStream).getTracks().forEach((t) => t.stop());
+      }
+      cameraRef.current?.stop();
+
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user", width: 640, height: 480 },
+        video: { facingMode, width: 640, height: 480 },
       });
       if (cancelled) return;
       videoRef.current.srcObject = stream;
@@ -202,7 +208,7 @@ const WorkoutCamera = ({ plan }: Props) => {
           .forEach((t) => t.stop());
       }
     };
-  }, [plan, onResults]);
+  }, [plan, onResults, facingMode]);
 
   // Reset reps when switching exercise
   useEffect(() => {
@@ -235,9 +241,17 @@ const WorkoutCamera = ({ plan }: Props) => {
         <h2 className="font-bold text-foreground text-lg">
           {currentExercise?.name || "Workout"}
         </h2>
-        <span className="text-sm text-muted-foreground">
-          {currentExIndex + 1}/{plan.exercises.length}
-        </span>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setFacingMode((m) => (m === "user" ? "environment" : "user"))}
+            className="text-xs px-2 py-1 rounded-lg bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {facingMode === "user" ? "🤳 Front" : "📷 Back"}
+          </button>
+          <span className="text-sm text-muted-foreground">
+            {currentExIndex + 1}/{plan.exercises.length}
+          </span>
+        </div>
       </div>
 
       {/* Camera */}
@@ -256,12 +270,12 @@ const WorkoutCamera = ({ plan }: Props) => {
           autoPlay
           playsInline
           muted
-          style={{ transform: "scaleX(-1)" }}
+          style={{ transform: facingMode === "user" ? "scaleX(-1)" : undefined }}
         />
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full"
-          style={{ transform: "scaleX(-1)" }}
+          style={{ transform: facingMode === "user" ? "scaleX(-1)" : undefined }}
         />
       </div>
 
