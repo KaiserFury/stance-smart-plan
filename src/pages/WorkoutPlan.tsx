@@ -66,11 +66,21 @@ const WorkoutPlan = ({ profile, plan }: Props) => {
                   </p>
                 </div>
               </div>
-              {ex.hasDetection && (
-                <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary">
-                  AI Tracked
-                </span>
-              )}
+              <div className="flex items-center gap-2">
+                {ex.hasDetection && (
+                  <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary">
+                    AI Tracked
+                  </span>
+                )}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="rounded-lg text-xs"
+                  onClick={() => navigate(`/workout?start=${i}`)}
+                >
+                  ▶ Start
+                </Button>
+              </div>
             </div>
           ))}
         </div>
