@@ -3,6 +3,16 @@ import { Button } from "@/components/ui/button";
 import type { WorkoutPlan as WorkoutPlanType } from "@/lib/workoutData";
 import type { UserProfile } from "@/lib/workoutData";
 
+import squatImg from "@/assets/exercise-squat.jpg";
+import pushupImg from "@/assets/exercise-pushup.jpg";
+import jumpingJacksImg from "@/assets/exercise-jumping-jacks.jpg";
+
+const exerciseImages: Record<string, string> = {
+  Squats: squatImg,
+  Pushups: pushupImg,
+  "Jumping Jacks": jumpingJacksImg,
+};
+
 interface Props {
   profile: UserProfile | null;
   plan: WorkoutPlanType | null;
@@ -41,9 +51,14 @@ const WorkoutPlan = ({ profile, plan }: Props) => {
               className="flex items-center justify-between p-4 rounded-xl bg-secondary/50 border border-border/50"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-lg font-bold text-primary">
-                  {i + 1}
-                </div>
+                <img
+                  src={exerciseImages[ex.name]}
+                  alt={ex.name}
+                  className="w-14 h-14 rounded-lg object-cover"
+                  loading="lazy"
+                  width={56}
+                  height={56}
+                />
                 <div>
                   <p className="font-semibold text-foreground">{ex.name}</p>
                   <p className="text-sm text-muted-foreground">
