@@ -270,12 +270,12 @@ const WorkoutCamera = ({ plan }: Props) => {
           autoPlay
           playsInline
           muted
-          style={{ transform: "scaleX(-1)" }}
+          style={{ transform: facingMode === "user" ? "scaleX(-1)" : undefined }}
         />
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full"
-          style={{ transform: "scaleX(-1)" }}
+          style={{ transform: facingMode === "user" ? "scaleX(-1)" : undefined }}
         />
       </div>
 
