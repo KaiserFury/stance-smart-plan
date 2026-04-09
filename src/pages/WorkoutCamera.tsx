@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import type { WorkoutPlan, Exercise } from "@/lib/workoutData";
 import { evaluateSquat, evaluatePushup, type PostureFeedback } from "@/lib/poseUtils";
+import cameraSwitchIcon from "@/assets/camera-switch.png";
 
 interface Props {
   plan: WorkoutPlan | null;
@@ -248,9 +249,12 @@ const WorkoutCamera = ({ plan }: Props) => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setFacingMode((m) => (m === "user" ? "environment" : "user"))}
-            className="text-xs px-2 py-1 rounded-lg bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
           >
-            {facingMode === "user" ? "🤳 Front" : "📷 Back"}
+            <img src={cameraSwitchIcon} alt="Switch camera" className="w-5 h-5" />
+            <span className="text-xs font-medium text-muted-foreground">
+              {facingMode === "user" ? "Front" : "Back"}
+            </span>
           </button>
           <span className="text-sm text-muted-foreground">
             {currentExIndex + 1}/{plan.exercises.length}
