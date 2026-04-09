@@ -23,9 +23,9 @@ const WorkoutPlan = ({ profile, plan }: Props) => {
 
   if (!profile || !plan) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="text-center space-y-4">
-          <p className="text-muted-foreground">No plan generated yet.</p>
+      <div className="min-h-screen flex items-center justify-center p-4 grain">
+        <div className="text-center space-y-4 relative z-10">
+          <p className="text-muted-foreground uppercase tracking-wide">No plan generated yet.</p>
           <Button onClick={() => navigate("/")}>Go Back</Button>
         </div>
       </div>
@@ -33,14 +33,14 @@ const WorkoutPlan = ({ profile, plan }: Props) => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md glass rounded-2xl p-8 space-y-6">
+    <div className="min-h-screen flex items-center justify-center p-4 grain">
+      <div className="w-full max-w-md glass rounded-lg p-8 space-y-6 relative z-10">
         <div className="text-center space-y-2">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          <h1 className="text-2xl font-black tracking-tight uppercase text-foreground">
             {plan.title}
           </h1>
-          <p className="text-sm text-muted-foreground">
-            Hey {profile.name}, here's your personalized workout
+          <p className="text-sm text-muted-foreground tracking-wide uppercase">
+            Let's go, {profile.name}
           </p>
         </div>
 
@@ -48,7 +48,7 @@ const WorkoutPlan = ({ profile, plan }: Props) => {
           {plan.exercises.map((ex, i) => (
             <div
               key={i}
-              className="flex items-center justify-between p-4 rounded-xl bg-secondary/50 border border-border/50"
+              className="flex items-center justify-between p-4 rounded-lg bg-secondary border border-border hover:border-primary/30 transition-colors"
             >
               <div className="flex items-center gap-3">
                 <img
@@ -60,22 +60,22 @@ const WorkoutPlan = ({ profile, plan }: Props) => {
                   height={56}
                 />
                 <div>
-                  <p className="font-semibold text-foreground">{ex.name}</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="font-bold text-foreground uppercase text-sm">{ex.name}</p>
+                  <p className="text-xs text-muted-foreground">
                     {ex.sets} sets × {ex.reps} reps
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 {ex.hasDetection && (
-                  <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary">
-                    AI Tracked
+                  <span className="text-xs font-bold px-2 py-1 rounded bg-accent/15 text-accent glow-green uppercase">
+                    AI
                   </span>
                 )}
                 <Button
                   size="sm"
                   variant="outline"
-                  className="rounded-lg text-xs"
+                  className="rounded-lg text-xs font-bold uppercase border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground"
                   onClick={() => navigate(`/workout?start=${i}`)}
                 >
                   ▶ Start
@@ -87,14 +87,14 @@ const WorkoutPlan = ({ profile, plan }: Props) => {
 
         <Button
           onClick={() => navigate("/workout")}
-          className="w-full h-12 text-base font-semibold rounded-xl"
+          className="w-full h-14 text-base font-black uppercase tracking-wider rounded-lg glow-red"
         >
-          🎥 Start Workout
+          🔥 Start Workout
         </Button>
 
         <button
           onClick={() => navigate("/")}
-          className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide font-semibold"
         >
           ← Back to profile
         </button>
