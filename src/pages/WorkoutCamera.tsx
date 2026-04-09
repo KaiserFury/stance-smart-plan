@@ -10,6 +10,7 @@ interface Props {
 
 const WorkoutCamera = ({ plan }: Props) => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const poseRef = useRef<any>(null);
