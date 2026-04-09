@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import type { WorkoutPlan, Exercise } from "@/lib/workoutData";
 import { evaluateSquat, evaluatePushup, type PostureFeedback } from "@/lib/poseUtils";
@@ -10,6 +10,7 @@ interface Props {
 
 const WorkoutCamera = ({ plan }: Props) => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const poseRef = useRef<any>(null);
@@ -24,7 +25,10 @@ const WorkoutCamera = ({ plan }: Props) => {
   const [reps, setReps] = useState(0);
   const [phase, setPhase] = useState<"up" | "down">("up");
   const [isLoading, setIsLoading] = useState(true);
-  const [currentExIndex, setCurrentExIndex] = useState(0);
+  const [currentExIndex, setCurrentExIndex] = useState(() => {
+    const start = parseInt(searchParams.get("start") || "0", 10);
+    return isNaN(start) ? 0 : start;
+  });
   const [facingMode, setFacingMode] = useState<"user" | "environment">("user");
 
   const currentExercise: Exercise | undefined = plan?.exercises[currentExIndex];
