@@ -241,9 +241,17 @@ const WorkoutCamera = ({ plan }: Props) => {
         <h2 className="font-bold text-foreground text-lg">
           {currentExercise?.name || "Workout"}
         </h2>
-        <span className="text-sm text-muted-foreground">
-          {currentExIndex + 1}/{plan.exercises.length}
-        </span>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setFacingMode((m) => (m === "user" ? "environment" : "user"))}
+            className="text-xs px-2 py-1 rounded-lg bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {facingMode === "user" ? "🤳 Front" : "📷 Back"}
+          </button>
+          <span className="text-sm text-muted-foreground">
+            {currentExIndex + 1}/{plan.exercises.length}
+          </span>
+        </div>
       </div>
 
       {/* Camera */}
