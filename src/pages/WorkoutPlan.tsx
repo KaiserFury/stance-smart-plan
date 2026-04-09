@@ -3,6 +3,16 @@ import { Button } from "@/components/ui/button";
 import type { WorkoutPlan as WorkoutPlanType } from "@/lib/workoutData";
 import type { UserProfile } from "@/lib/workoutData";
 
+import squatImg from "@/assets/exercise-squat.jpg";
+import pushupImg from "@/assets/exercise-pushup.jpg";
+import jumpingJacksImg from "@/assets/exercise-jumping-jacks.jpg";
+
+const exerciseImages: Record<string, string> = {
+  Squats: squatImg,
+  Pushups: pushupImg,
+  "Jumping Jacks": jumpingJacksImg,
+};
+
 interface Props {
   profile: UserProfile | null;
   plan: WorkoutPlanType | null;
