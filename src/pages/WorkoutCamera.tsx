@@ -25,7 +25,10 @@ const WorkoutCamera = ({ plan }: Props) => {
   const [reps, setReps] = useState(0);
   const [phase, setPhase] = useState<"up" | "down">("up");
   const [isLoading, setIsLoading] = useState(true);
-  const [currentExIndex, setCurrentExIndex] = useState(0);
+  const [currentExIndex, setCurrentExIndex] = useState(() => {
+    const start = parseInt(searchParams.get("start") || "0", 10);
+    return isNaN(start) ? 0 : start;
+  });
   const [facingMode, setFacingMode] = useState<"user" | "environment">("user");
 
   const currentExercise: Exercise | undefined = plan?.exercises[currentExIndex];
