@@ -45,23 +45,23 @@ const UserForm = ({ onSubmit }: Props) => {
     form.name && form.age && form.height && form.weight && form.bodyType && form.fitnessGoal;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md glass rounded-2xl p-8 space-y-6">
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 mb-2">
-            <span className="text-2xl">🏋️</span>
+    <div className="min-h-screen flex items-center justify-center p-4 grain">
+      <div className="w-full max-w-md glass rounded-lg p-8 space-y-8 relative z-10">
+        <div className="text-center space-y-3">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-lg bg-primary/10 glow-red mb-2">
+            <span className="text-3xl">⚡</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          <h1 className="text-3xl font-black tracking-tight uppercase text-foreground">
             AI Fitness Coach
           </h1>
-          <p className="text-sm text-muted-foreground">
-            Tell us about yourself to get a personalized plan
+          <p className="text-sm text-muted-foreground tracking-wide uppercase">
+            Build your personalized training plan
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Name</Label>
             <Input
               id="name"
               placeholder="Your name"
@@ -73,49 +73,23 @@ const UserForm = ({ onSubmit }: Props) => {
 
           <div className="grid grid-cols-3 gap-3">
             <div className="space-y-2">
-              <Label htmlFor="age">Age</Label>
-              <Input
-                id="age"
-                type="number"
-                placeholder="25"
-                value={form.age}
-                onChange={(e) => setForm({ ...form, age: e.target.value })}
-                required
-              />
+              <Label htmlFor="age" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Age</Label>
+              <Input id="age" type="number" placeholder="25" value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} required />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="height">Height (cm)</Label>
-              <Input
-                id="height"
-                type="number"
-                placeholder="175"
-                value={form.height}
-                onChange={(e) => setForm({ ...form, height: e.target.value })}
-                required
-              />
+              <Label htmlFor="height" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Height (cm)</Label>
+              <Input id="height" type="number" placeholder="175" value={form.height} onChange={(e) => setForm({ ...form, height: e.target.value })} required />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="weight">Weight (kg)</Label>
-              <Input
-                id="weight"
-                type="number"
-                placeholder="70"
-                value={form.weight}
-                onChange={(e) => setForm({ ...form, weight: e.target.value })}
-                required
-              />
+              <Label htmlFor="weight" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Weight (kg)</Label>
+              <Input id="weight" type="number" placeholder="70" value={form.weight} onChange={(e) => setForm({ ...form, weight: e.target.value })} required />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label>Body Type</Label>
-            <Select
-              value={form.bodyType}
-              onValueChange={(v) => setForm({ ...form, bodyType: v })}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select body type" />
-              </SelectTrigger>
+            <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Body Type</Label>
+            <Select value={form.bodyType} onValueChange={(v) => setForm({ ...form, bodyType: v })}>
+              <SelectTrigger><SelectValue placeholder="Select body type" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="ectomorph">Ectomorph (Lean)</SelectItem>
                 <SelectItem value="mesomorph">Mesomorph (Athletic)</SelectItem>
@@ -125,14 +99,9 @@ const UserForm = ({ onSubmit }: Props) => {
           </div>
 
           <div className="space-y-2">
-            <Label>Fitness Goal</Label>
-            <Select
-              value={form.fitnessGoal}
-              onValueChange={(v) => setForm({ ...form, fitnessGoal: v })}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select goal" />
-              </SelectTrigger>
+            <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Fitness Goal</Label>
+            <Select value={form.fitnessGoal} onValueChange={(v) => setForm({ ...form, fitnessGoal: v })}>
+              <SelectTrigger><SelectValue placeholder="Select goal" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="fat_loss">Fat Loss</SelectItem>
                 <SelectItem value="muscle_gain">Muscle Gain</SelectItem>
@@ -141,7 +110,11 @@ const UserForm = ({ onSubmit }: Props) => {
             </Select>
           </div>
 
-          <Button type="submit" className="w-full h-12 text-base font-semibold rounded-xl" disabled={!isValid}>
+          <Button
+            type="submit"
+            className="w-full h-14 text-base font-black uppercase tracking-wider rounded-lg glow-red"
+            disabled={!isValid}
+          >
             Generate My Plan →
           </Button>
         </form>
