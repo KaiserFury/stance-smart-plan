@@ -25,6 +25,7 @@ const WorkoutCamera = ({ plan }: Props) => {
   const [phase, setPhase] = useState<"up" | "down">("up");
   const [isLoading, setIsLoading] = useState(true);
   const [currentExIndex, setCurrentExIndex] = useState(0);
+  const [facingMode, setFacingMode] = useState<"user" | "environment">("user");
 
   const currentExercise: Exercise | undefined = plan?.exercises[currentExIndex];
   const exerciseType = currentExercise?.name.toLowerCase().includes("pushup")
