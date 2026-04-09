@@ -247,15 +247,28 @@ const WorkoutCamera = ({ plan }: Props) => {
           {currentExercise?.name || "Workout"}
         </h2>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setFacingMode((m) => (m === "user" ? "environment" : "user"))}
-            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
-          >
-            <img src={cameraSwitchIcon} alt="Switch camera" className="w-5 h-5" />
-            <span className="text-xs font-medium text-muted-foreground">
-              {facingMode === "user" ? "Front" : "Back"}
-            </span>
-          </button>
+          <div className="flex items-center rounded-lg bg-secondary overflow-hidden border border-border/50">
+            <button
+              onClick={() => setFacingMode("user")}
+              className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors ${
+                facingMode === "user"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Front
+            </button>
+            <button
+              onClick={() => setFacingMode("environment")}
+              className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors ${
+                facingMode === "environment"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Back
+            </button>
+          </div>
           <span className="text-sm text-muted-foreground">
             {currentExIndex + 1}/{plan.exercises.length}
           </span>
